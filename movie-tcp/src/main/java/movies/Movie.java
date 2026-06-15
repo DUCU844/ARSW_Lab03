@@ -1,6 +1,13 @@
 package movies;
 
-public class Movie {
+import java.io.Serializable;
+
+/**
+ * This class represents a movie.
+ * It implements Serializable so RMI can send it through the network.
+ * TCP and HTTP still work the same way.
+ */
+public class Movie implements Serializable {
     private int id;
     private String title;
     private String director;
