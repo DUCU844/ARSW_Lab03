@@ -1,5 +1,6 @@
 package classroomManagement;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,16 @@ public class ClassroomRepository {
      */
     public Classroom findByClassroomId(String classroomId){
         return classrooms.get(classroomId);
+    }
+
+    /**
+     * Return all classrooms in the system.
+     * Used by the HTTP server to list everything.
+     *
+     * @return a collection of all Classroom objects
+     */
+    public Collection<Classroom> findAll() {
+        return classrooms.values();
     }
 
     /**
