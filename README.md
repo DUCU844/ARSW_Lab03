@@ -202,3 +202,149 @@ The "contract" is scattered across:
 If a new developer joins the project, they must read all four classes to understand the full contract. There is no single document or file that describes the protocol completely.
 
 This is one of the main problems with TCP text protocols. Later in this lab, gRPC solves this by using a `.proto` file as the formal contract. The `.proto` file describes every operation, every parameter, and every response in one place, and it can generate code automatically for any language.
+
+---
+
+## Part II - HTTP Architecture
+
+### Guide Example: Movie HTTP Server
+
+The TCP server only works with a Java client.
+HTTP lets any browser, curl, or Postman talk to the server — no custom client needed.
+
+**How to run:**
+```bash
+cd movie-tcp/src/main/java
+javac movies/*.java
+java movies.MovieHttpServer
+```
+
+Then open in browser: `http://localhost:8080/movie?id=1`
+
+**What changed from TCP:**
+
+| TCP | HTTP |
+|---|---|
+| `MOVIE:1` — custom text | `GET /movie?id=1` — standard format |
+| Only Java clients | Any browser or tool |
+| Protocol in your head | Method + path + parameters |
+
+---
+
+### Exercise 2: Classroom Management via HTTP
+
+Same classroom system from Exercise 1, but now exposed via HTTP.
+No Java client needed — test with browser, curl, or Postman.
+
+#### Routes
+
+| Method | Path | What it does |
+|---|---|---|
+| `GET` | `/rooms` | List all classrooms and their status |
+| `GET` | `/rooms?id=E303` | Check status of one classroom |
+| `POST` | `/rooms/reserve?id=E303` | Reserve a classroom |
+| `POST` | `/rooms/release?id=E303` | Release a classroom |
+
+#### Architecture
+
+```
+Browser / curl / Postman
+         |
+         | HTTP request: GET /rooms?id=E303
+         v
+ClassroomHttpServer (port 8081)
+         |
+         | handle() checks method + path + query
+         | calls handleConsult / handleReserve / handleRelease
+         v
+ClassroomRepository (same as Part I, in memory)
+         |
+         | reads or changes available field
+         v
+ClassroomHttpServer writes text response back
+```
+
+#### How to run
+
+```bash
+cd movie-tcp/src/main/java
+javac classroomManagement/*.java
+java classroomManagement.ClassroomHttpServer
+```
+
+Then test with curl:
+```bash
+# List all classrooms
+curl http://localhost:8081/rooms
+
+# Check status of E303
+curl http://localhost:8081/rooms?id=E303
+
+# Reserve E301
+curl -X POST http://localhost:8081/rooms/reserve?id=E301
+
+# Release E301
+curl -X POST "http://localhost:8081/rooms/release?id=E301"
+```
+
+Or open `http://localhost:8081/rooms` in a browser (GET only).
+
+#### Troubleshooting: port already in use
+
+Same error as Part I but for port 8081:
+```
+java.net.BindException: Address already in use
+```
+
+```powershell
+netstat -ano | findstr :8081
+taskkill /PID <PID> /F
+```
+
+---
+
+## Reflection Questions - Part II
+
+### 1. What advantages does HTTP offer over a manually defined text protocol?
+
+HTTP gives structure that everyone already knows:
+
+- **Method** (`GET`, `POST`) tells you if you are reading or changing something. In TCP, all messages looked the same — just text.
+- **Path** (`/rooms`, `/rooms/reserve`) describes the resource and action clearly.
+- **Standard tools work immediately.** Any browser, curl, Postman, or any language can call the server. In TCP, you needed a custom Java client.
+- **Status codes** (`200`, `404`) give a standard way to say if something worked or failed.
+
+The main gain is **interoperability**: other systems can talk to this server without knowing anything special about it.
+
+### 2. What limitations does building an HTTP server without a framework have?
+
+Without a framework (like Spring Boot), you do everything manually:
+
+- **Routing is manual.** We check `path.equals("/rooms/reserve")` ourselves. With 20 routes this becomes a mess.
+- **No JSON support.** We return plain text. To return proper JSON we would need to build the strings manually or add a library.
+- **No input validation.** If someone sends `?id=` with nothing, we have to handle that ourselves.
+- **No error handling middleware.** Each handler must catch its own exceptions.
+- **No content negotiation.** We cannot easily return different formats (HTML, JSON, XML) based on what the client asks for.
+
+This is fine for learning, but not for production systems.
+
+### 3. How would this solution change if JSON was used instead of HTML?
+
+The server logic stays the same. Only the response changes.
+
+Instead of returning:
+```
+RESERVA_EXITOSA
+```
+
+We would return:
+```json
+{ "result": "RESERVA_EXITOSA", "classroomId": "E301" }
+```
+
+Changes needed:
+1. Build a JSON string manually, or add a library like Gson or Jackson.
+2. Add the header `Content-Type: application/json` before sending the response.
+3. The client reads JSON instead of plain text — easier to parse in any language.
+
+JSON is better for APIs because the response has structure. Any client (JavaScript, Python, mobile app) can read it easily without parsing raw text.
