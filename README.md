@@ -348,3 +348,142 @@ Changes needed:
 3. The client reads JSON instead of plain text — easier to parse in any language.
 
 JSON is better for APIs because the response has structure. Any client (JavaScript, Python, mobile app) can read it easily without parsing raw text.
+
+---
+
+## Part III - RPC with Java RMI
+
+### Guide Example: Movie RMI Server
+
+RMI lets a Java client call methods on an object that lives in another JVM.
+No need to design message formats — you just call a method.
+
+```
+Client calls:  service.getMovie(1)
+               ↓  (goes through network)
+Server runs the method and returns the Movie object
+               ↓
+Client receives the Movie object
+```
+
+**How to run:**
+```bash
+cd movie-tcp/src/main/java
+javac movies/*.java
+
+# Terminal 1
+java movies.MovieRmiServer
+
+# Terminal 2
+java movies.MovieRmiClient
+```
+
+---
+
+### Exercise 3: Lab Equipment Inventory with RMI
+
+A system to consult and reserve laboratory equipment.
+The contract is a Java interface (`LabService`) — no text protocol.
+
+#### Initial equipment
+
+| Code  | Name             | Lab   | Status    |
+|-------|------------------|-------|-----------|
+| PC-01 | Desktop Computer | Lab A | AVAILABLE |
+| PC-02 | Desktop Computer | Lab A | RESERVED  |
+| RP-01 | Raspberry Pi     | Lab B | AVAILABLE |
+| AR-01 | Arduino Kit      | Lab B | AVAILABLE |
+| LP-01 | Laptop           | Lab C | RESERVED  |
+
+#### Remote interface
+
+```java
+List<String> consultarEquipos()
+String consultarEquipo(String codigo)
+boolean reservarEquipo(String codigo)
+boolean liberarEquipo(String codigo)
+```
+
+#### Architecture
+
+```
+LabRmiClient
+     |
+     | registry.lookup("labService")  → gets remote reference
+     v
+RMI Registry (port 24000)
+     |
+     | returns stub (fake local object)
+     v
+LabRmiClient calls service.reservarEquipo("PC-01")
+     |
+     | RMI sends the call through the network automatically
+     v
+LabServiceImpl.reservarEquipo() runs on server
+     |
+     | returns boolean result
+     v
+Client receives true or false
+```
+
+#### How to run
+
+```bash
+cd movie-tcp/src/main/java
+javac labInventory/*.java
+
+# Terminal 1
+java labInventory.LabRmiServer
+
+# Terminal 2
+java labInventory.LabRmiClient
+```
+
+#### Key design decisions
+
+- `LabEquipment implements Serializable` — required so RMI can send the object through the network.
+- `LabServiceImpl extends UnicastRemoteObject` — makes the object available for remote calls.
+- Port 24000 avoids conflict with the movie RMI server on port 23000.
+- The contract (`LabService` interface) is the only thing the client needs to know — not how the server stores data.
+
+---
+
+## Reflection Questions - Part III
+
+### 1. What changed when moving from HTTP to RMI?
+
+In HTTP, the client builds a URL string and reads a text response:
+```
+GET /rooms/reserve?id=E301  →  "RESERVA_EXITOSA"
+```
+
+In RMI, the client calls a real Java method and gets a real Java object back:
+```java
+boolean result = service.reservarEquipo("PC-01");  // true or false
+```
+
+The differences:
+- **No protocol to design.** The Java interface IS the contract.
+- **Typed results.** You get `boolean`, `List<String>`, or an object — not raw text.
+- **No parsing.** You don't split strings or check text values.
+- **Error handling is Java exceptions**, not error strings.
+
+The experience feels like calling local code, even though the method runs on another machine.
+
+### 2. Where is the communication contract defined?
+
+In `LabService.java`. That one interface describes every operation:
+- What method names exist
+- What parameters each method takes (and their types)
+- What each method returns (and its type)
+- What exceptions can happen
+
+Both client and server must use this interface. If the server changes a method signature, the client stops compiling. This is much stronger than the text conventions in Part I.
+
+### 3. What problems would this system have if a client is not written in Java?
+
+RMI only works between Java programs. It uses Java serialization to send objects through the network — a format that only Java understands.
+
+If a Python or JavaScript client tried to connect to the RMI registry, it would fail completely. There is no standard way to read Java-serialized objects in other languages.
+
+This is the main limitation of RMI. A system built with RMI is **locked to Java on both sides**. gRPC (Part IV) solves this: the `.proto` contract generates code for any language, so a Java server can talk to a Python client.
