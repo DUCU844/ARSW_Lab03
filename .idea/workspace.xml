@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bad7bcb7-ea22-4b30-a496-8ff4e0d4d740" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/movie-tcp/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movie-tcp/src/main/java/classroomManagement/Classroom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movie-tcp/src/main/java/classroomManagement/ClassroomClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movie-tcp/src/main/java/classroomManagement/ClassroomRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movie-tcp/src/main/java/classroomManagement/ClassroomServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movie-tcp/src/main/java/movies/Movie.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movie-tcp/src/main/java/movies/MovieClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movie-tcp/src/main/java/movies/MovieRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movie-tcp/src/main/java/movies/MovieServer.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Cursos/Java/Universidad/ARSW/ARSW_Lab03" value="3F0U1z0yITB7PdGtgq3qS5c38tG" />
+    </persistenceIdMap>
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="8" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DUCU844&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DUCU844/ARSW_Lab03.git&quot;,
+    &quot;accountId&quot;: &quot;7c785ad0-b12e-4b67-8002-b3d33a27075d&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.000000000001447" />
+      <entry key="MS500" value="1.0042864528936626" />
+      <entry key="S2" value="1.2577558049381645" />
+      <entry key="S5" value="1.6668588569223641" />
+      <entry key="S10" value="2.123442525766512" />
+      <entry key="S30" value="3.099198579767643" />
+      <entry key="S60" value="4.099958237970961" />
+      <entry key="M2" value="5.496652661258539" />
+      <entry key="M5" value="7.563184988813792" />
+      <entry key="M10" value="11.091133667168087" />
+      <entry key="M15" value="15.429877481948072" />
+      <entry key="M30" value="32.28123443044467" />
+      <entry key="H1" value="66.09057543301938" />
+      <entry key="H2" value="106.12525784281263" />
+      <entry key="H4" value="138.37635930691783" />
+      <entry key="D1" value="244.6397123828221" />
+      <entry key="W1" value="380.20411583570694" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="7.005362460043875E-237" />
+      <entry key="S5" value="3.465681023365823E-95" />
+      <entry key="S10" value="6.262825236418714E-48" />
+      <entry key="S30" value="3.1204482314347474E-16" />
+      <entry key="S60" value="3.904080989510961E-8" />
+      <entry key="M2" value="5.201196062195947E-4" />
+      <entry key="M5" value="0.1667937153965943" />
+      <entry key="M10" value="1.213373241402819" />
+      <entry key="M15" value="2.56968606372819" />
+      <entry key="M30" value="7.094260486020045" />
+      <entry key="H1" value="15.103931015106303" />
+      <entry key="H2" value="24.129450413421818" />
+      <entry key="H4" value="31.23224840826065" />
+      <entry key="D1" value="43.98971354228008" />
+      <entry key="W1" value="54.21926258586874" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.9726549474136641" />
+      <entry key="MS500" value="0.9987152267422615" />
+      <entry key="S2" value="1.255743309379342" />
+      <entry key="S5" value="1.6656110584332038" />
+      <entry key="S10" value="2.1225307021344237" />
+      <entry key="S30" value="3.098666529314213" />
+      <entry key="S60" value="4.099406379836211" />
+      <entry key="M2" value="5.496468302783453" />
+      <entry key="M5" value="7.728262070722059" />
+      <entry key="M10" value="12.299667810504443" />
+      <entry key="M15" value="17.99269381222253" />
+      <entry key="M30" value="39.36496510294962" />
+      <entry key="H1" value="81.18203687391427" />
+      <entry key="H2" value="130.2441709487877" />
+      <entry key="H4" value="169.6016044547366" />
+      <entry key="D1" value="288.6276926090433" />
+      <entry key="W1" value="434.4230608428886" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3F0U1z0yITB7PdGtgq3qS5c38tG" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ClassroomClient.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ClassroomServer.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/Adrian&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Cursos\Java\Universidad\ARSW\ARSW_Lab03\movie-tcp\src\main\java\movies" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ClassroomClient">
+    <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
+      <option name="appName" />
+      <option name="appServicePlanName" />
+      <option name="appServicePlanResourceGroup" />
+      <option name="appSettingsKey" value="267ad9e8-94da-467c-a607-6eb6d1fc1a0b" />
+      <option name="artifact" />
+      <option name="debugOptions" />
+      <option name="deployment" />
+      <option name="deploymentStagingDirectoryPath" />
+      <option name="funcPath" />
+      <option name="functionHostArguments" />
+      <option name="hostJsonPath" />
+      <option name="insightsName" />
+      <option name="instrumentationKey" />
+      <option name="javaVersion" />
+      <option name="localSettingsJsonPath" />
+      <option name="moduleName" />
+      <option name="os" />
+      <option name="pricingTier" />
+      <option name="providerMap">
+        <map />
+      </option>
+      <option name="region" />
+      <option name="resourceGroup" />
+      <option name="stagingFolder" />
+      <option name="subscription" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClassroomClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="classroomManagement.ClassroomClient" />
+      <module name="Client_Server-SocketsTCP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="classroomManagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClassroomServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="classroomManagement.ClassroomServer" />
+      <module name="Client_Server-SocketsTCP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="classroomManagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ClassroomClient" />
+        <item itemvalue="Application.ClassroomServer" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bad7bcb7-ea22-4b30-a496-8ff4e0d4d740" name="Changes" comment="" />
+      <created>1749834211009</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1749834211009</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
