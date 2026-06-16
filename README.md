@@ -623,3 +623,126 @@ This is impossible with RMI.
 
 Both use the RPC model: the client calls a method that runs on the server.
 The key difference is that gRPC is language-agnostic and generates code automatically.
+
+---
+
+## Part V - Microservices Architecture
+
+### Guide Example: Movie System split into 3 microservices
+
+In Part IV the movie system was one service that did everything.
+In Part V each responsibility is its own independent service on its own port.
+
+```
+MovieSystemClient
+    |
+    |-- localhost:50051 --> MovieService       (movie data only)
+    |-- localhost:50053 --> ReviewService      (reviews only)
+    |-- localhost:50054 --> RecommendationService (suggestions only)
+```
+
+**How to run (4 terminals):**
+```bash
+cd movie-grpc
+mvn clean compile
+
+# Terminal 1
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.movie.MovieGrpcServer"
+
+# Terminal 2
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.review.ReviewGrpcServer"
+
+# Terminal 3
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.recommendation.RecommendationGrpcServer"
+
+# Terminal 4 - client that queries all 3
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.movie.MovieSystemClient"
+```
+
+---
+
+### Exercise 5: Wellness System split into microservices
+
+The wellness system from Part IV is now decomposed into 3 independent microservices.
+
+#### Service map
+
+| Service | Responsibility | Port |
+|---|---|---|
+| `AppointmentService` | Create, cancel, and list appointments | 50052 |
+| `MedicalService` | Manage medical specialties and availability | 50055 |
+| `GymService` | Manage gym sessions and reservations | 50056 |
+
+#### Architecture diagram
+
+```
+WellnessSystemClient
+    |
+    |-- localhost:50052 --> AppointmentService  (appointments only)
+    |-- localhost:50055 --> MedicalService      (specialties only)
+    |-- localhost:50056 --> GymService          (gym sessions only)
+```
+
+Each service:
+- Has its own port
+- Has its own proto file
+- Stores its own data in memory
+- Does NOT know about the other services
+
+#### How to run
+
+```bash
+cd movie-grpc
+mvn clean compile
+
+# Terminal 1
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.wellness.AppointmentGrpcServer"
+
+# Terminal 2
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.medical.MedicalGrpcServer"
+
+# Terminal 3
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.gym.GymGrpcServer"
+
+# Terminal 4
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.wellness.WellnessSystemClient"
+```
+
+---
+
+## Reflection Questions - Part V
+
+### 1. Why did you separate those services and not others?
+
+Each service was separated based on a different **business domain**:
+
+- `AppointmentService` owns the concept of scheduling — when, who, and what type.
+- `MedicalService` owns the concept of what medical care is available and when.
+- `GymService` owns the concept of physical activity slots.
+
+These are three different areas of the wellness center. In a real system, different teams would manage each one. Separating them means a change in `GymService` does not require touching `AppointmentService` at all.
+
+`RecreationService` was not implemented because the lab requires at least two. The design is the same pattern: one proto file, one server, one port, one responsibility.
+
+### 2. What data belongs to each service?
+
+| Service | Its data |
+|---|---|
+| `AppointmentService` | Appointment ID, student ID, service type, date, status |
+| `MedicalService` | Specialty name, description, available dates per specialty |
+| `GymService` | Session time slots, capacity, availability |
+
+No service stores data that belongs to another. For example, `GymService` does not store which student has a medical appointment — that is `AppointmentService`'s data.
+
+### 3. What risk appears when the client knows all the services?
+
+**Tight coupling between client and infrastructure.**
+
+If `GymService` moves from port 50056 to 50060, or to a different machine, every client that uses it must be updated. With 3 services this is manageable. With 20 services it becomes a maintenance problem.
+
+Other risks:
+- **Client complexity grows** with each new service added.
+- **No single point of control** — impossible to add authentication, logging, or rate limiting in one place.
+- **The client becomes brittle** — it fails completely if any one service is down.
+
+This is exactly the problem that the API Gateway in Part VI solves.
