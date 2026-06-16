@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.medical";
+option java_outer_classname = "MedicalProto";
+
+// Contract for the MedicalService microservice.
+// This service manages medical specialties available in the wellness center.
+// It runs on port 50055, independent from AppointmentService.
+
+service MedicalService {
+  rpc GetSpecialties  (MedicalEmptyRequest) returns (SpecialtyList);
+  rpc GetAvailability (SpecialtyRequest)    returns (AvailabilityResponse);
+}
+
+// Empty request — used when we do not need to send any data.
+message MedicalEmptyRequest {}
+
+// Ask for availability of one specialty.
+message SpecialtyRequest {
+  string specialty = 1;
+}
+
+// One medical specialty with its description.
+message Specialty {
+  string name        = 1;
+  string description = 2;
+}
+
+// List of all available specialties.
+message SpecialtyList {
+  repeated Specialty specialties = 1;
+}
+
+// Available dates for one specialty.
+message AvailabilityResponse {
+  string          specialty       = 1;
+  repeated string available_dates = 2;
+}

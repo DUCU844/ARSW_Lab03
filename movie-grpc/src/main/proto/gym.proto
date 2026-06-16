@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.gym";
+option java_outer_classname = "GymProto";
+
+// Contract for the GymService microservice.
+// This service manages gym session reservations.
+// It runs on port 50056, independent from other services.
+
+service GymService {
+  rpc GetSessions    (GymEmptyRequest) returns (SessionList);
+  rpc ReserveSession (SessionRequest)  returns (SessionResponse);
+}
+
+// Empty request — used when we do not need to send any data.
+message GymEmptyRequest {}
+
+// Request to reserve one gym session.
+message SessionRequest {
+  string student_id = 1;
+  string time_slot  = 2;
+}
+
+// One gym session with its capacity and availability.
+message GymSession {
+  string time_slot = 1;
+  int32  capacity  = 2;
+  bool   available = 3;
+}
+
+// List of all gym sessions.
+message SessionList {
+  repeated GymSession sessions = 1;
+}
+
+// Response after trying to reserve a session.
+message SessionResponse {
+  bool   success = 1;
+  string message = 2;
+}
