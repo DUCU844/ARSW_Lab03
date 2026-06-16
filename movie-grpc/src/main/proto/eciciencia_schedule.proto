@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.eciciencia.schedule";
+option java_outer_classname = "ScheduleProto";
+
+// Contract for the ScheduleService microservice.
+// This service only manages the ECICIENCIA agenda: activities and time slots.
+// It does not manage who attends or how many spots are left.
+
+service ScheduleService {
+  rpc GetActivities         (ScheduleEmptyRequest) returns (ActivityList);
+  rpc GetActivitiesBySlot   (TimeSlotRequest)      returns (ActivityList);
+  rpc GetActivity           (ActivityIdRequest)    returns (ActivityResponse);
+}
+
+// Empty request — used when we do not need to send any data.
+message ScheduleEmptyRequest {}
+
+// Ask for activities in a specific time slot.
+message TimeSlotRequest {
+  string time_slot = 1;
+}
+
+// Ask for one activity by its ID.
+message ActivityIdRequest {
+  string activity_id = 1;
+}
+
+// One activity in the agenda.
+message Activity {
+  string       activity_id  = 1;
+  string       title        = 2;
+  string       speaker      = 3;
+  string       time_slot    = 4;
+  string       location     = 5;
+  ActivityType type         = 6;
+  int32        max_capacity = 7;
+}
+
+// List of activities returned by the service.
+message ActivityList {
+  repeated Activity activities = 1;
+}
+
+// Full response for one activity.
+message ActivityResponse {
+  Activity activity = 1;
+  bool     found    = 2;
+}
+
+// Type of activity at the event.
+enum ActivityType {
+  TALK      = 0;
+  WORKSHOP  = 1;
+  DEMO      = 2;
+  TOUR      = 3;
+}

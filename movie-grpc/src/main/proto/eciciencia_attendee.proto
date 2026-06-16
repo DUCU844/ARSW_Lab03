@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.eciciencia.attendee";
+option java_outer_classname = "AttendeeProto";
+
+// Contract for the AttendeeService microservice.
+// This service only manages who attends the ECICIENCIA event.
+// It does not know about workshops, schedules, or reservations.
+
+service AttendeeService {
+  rpc RegisterAttendee (AttendeeRequest)   returns (AttendeeResponse);
+  rpc GetAttendee      (AttendeeIdRequest) returns (AttendeeResponse);
+}
+
+// Data needed to register a new attendee.
+message AttendeeRequest {
+  string name              = 1;
+  string institutional_id  = 2;
+  string email             = 3;
+  AttendeeType type        = 4;
+}
+
+// Ask for one attendee by their ID.
+message AttendeeIdRequest {
+  string institutional_id = 1;
+}
+
+// The attendee data returned by the service.
+message AttendeeResponse {
+  string institutional_id = 1;
+  string name             = 2;
+  string email            = 3;
+  AttendeeType type       = 4;
+  bool   registered       = 5;
+  string message          = 6;
+}
+
+// Type of person attending the event.
+enum AttendeeType {
+  STUDENT  = 0;
+  PROFESSOR = 1;
+  EXTERNAL = 2;
+}

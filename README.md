@@ -894,3 +894,156 @@ When this happens:
 
 The rule: the Gateway should only **route and aggregate**.
 Business logic belongs in the services.
+
+---
+
+## Final Exercise - ECICIENCIA Platform
+
+### Context
+
+The school needs a distributed platform for the ECICIENCIA event.
+The platform must allow: attendee registration, agenda consultation,
+workshop spot reservation, capacity control, and activity search by time slot.
+
+---
+
+### Microservice Design
+
+#### Services and responsibilities
+
+| Service | Responsibility | Port |
+|---|---|---|
+| `AttendeeService` | Register and query event attendees | 50060 |
+| `ScheduleService` | Manage the full agenda: activities, time slots, locations | 50061 |
+| `ReservationService` | Reserve and cancel workshop spots, control capacity | 50062 |
+| `EcicienciaGateway` | Single entry point for all client operations | — |
+
+#### Why not one monolithic service?
+
+A single service would mix three completely different business domains:
+
+- **Who attends** (people, IDs, emails) — changes when registration opens or closes
+- **What happens and when** (agenda, speakers, rooms) — changes when organizers update the schedule
+- **Who reserved what** (spots, capacity) — changes constantly as people reserve
+
+If all three are in one service:
+- A bug in capacity logic can break registration
+- Updating the agenda requires touching the same code as reservation logic
+- The whole system stops if the single service crashes
+- Impossible to scale only the reservation logic independently during peak demand
+
+With three services:
+- Each team can deploy their service without affecting others
+- If `ReservationService` is slow under load, only it needs to scale
+- A crash in `ScheduleService` does not stop people from registering
+
+---
+
+### Architecture Diagram
+
+```
+                    User / Client
+                         |
+                         v
+               ┌─────────────────────┐
+               │   EcicienciaGateway  │  (single entry point)
+               └─────────────────────┘
+                 |         |         |
+                 v         v         v
+         AttendeeService  ScheduleService  ReservationService
+           :50060           :50061            :50062
+              |                |                  |
+         (attendees      (activities,         (reservations,
+          in memory)      time slots          capacity
+                          in memory)          in memory)
+```
+
+---
+
+### Proto Files
+
+Three contracts are defined in the proto files:
+
+**`eciciencia_attendee.proto`** — AttendeeService
+```protobuf
+service AttendeeService {
+  rpc RegisterAttendee (AttendeeRequest)   returns (AttendeeResponse);
+  rpc GetAttendee      (AttendeeIdRequest) returns (AttendeeResponse);
+}
+```
+
+**`eciciencia_schedule.proto`** — ScheduleService
+```protobuf
+service ScheduleService {
+  rpc GetActivities       (ScheduleEmptyRequest) returns (ActivityList);
+  rpc GetActivitiesBySlot (TimeSlotRequest)      returns (ActivityList);
+  rpc GetActivity         (ActivityIdRequest)    returns (ActivityResponse);
+}
+```
+
+**`eciciencia_reservation.proto`** — ReservationService
+```protobuf
+service ReservationService {
+  rpc ReserveSpot          (ReservationRequest)         returns (ReservationResponse);
+  rpc CancelReservation    (CancelReservationRequest)   returns (CancelReservationResponse);
+  rpc GetCapacity          (CapacityRequest)            returns (CapacityResponse);
+  rpc GetMyReservations    (AttendeeReservationRequest) returns (ReservationList);
+}
+```
+
+---
+
+### Gateway Design
+
+The `EcicienciaGateway` exposes these operations to the client:
+
+| Gateway operation | Internal calls |
+|---|---|
+| `registerAttendee(name, id, email, type)` | → AttendeeService.RegisterAttendee |
+| `getActivitySchedule()` | → ScheduleService.GetActivities |
+| `getActivitiesByTimeSlot(slot)` | → ScheduleService.GetActivitiesBySlot |
+| `reserveWorkshopSpot(attendeeId, activityId)` | → ReservationService.ReserveSpot |
+| `getActivityCapacity(activityId)` | → ReservationService.GetCapacity |
+| `getAttendeeProfile(attendeeId)` | → AttendeeService.GetAttendee + ReservationService.GetMyReservations (aggregated) |
+
+The last operation (`getAttendeeProfile`) is the best example of Gateway value:
+the client makes one call and gets data from two different services combined.
+
+---
+
+### Architectural Evolution Reflection
+
+This lab showed how the same problem — exposing data to a remote client — can be solved
+in six different ways, each one fixing a problem left by the previous.
+
+**TCP Sockets** gave the foundation: two programs can talk through a network.
+But the protocol was invented manually. There was no formal document describing it.
+Adding a new operation meant updating code in multiple places with no safety net.
+
+**HTTP** solved interoperability. Any browser or tool could talk to the server.
+The URL structure gave the protocol more clarity than raw text strings.
+But the contract was still informal — defined by convention, not by a file.
+
+**RMI** introduced the idea of a formal contract through a Java interface.
+The client called methods, not strings. Types were enforced at compile time.
+The problem: both sides had to be Java. The contract was only readable in Java.
+
+**gRPC** kept the contract idea but made it language-agnostic.
+The `.proto` file is the contract — readable by anyone, generates code for any language.
+Types are enforced. The communication is efficient with Protocol Buffers.
+This is the style used in real microservice systems today.
+
+**Microservices** answered a different question: not *how* to communicate,
+but *what* should be a service. Each service owns one domain.
+A change in one service does not require touching others.
+Teams can work in parallel, deploy independently, and scale separately.
+
+**API Gateway** completed the picture. With many services, the client becomes complex.
+The Gateway hides that complexity. One entry point. One set of ports to know.
+One place to add authentication, logging, or rate limiting in the future.
+
+The ECICIENCIA platform applies all of this:
+three services with clear domains, formal proto contracts,
+and a Gateway that gives the client a single coherent interface.
+The result is a system that can grow, change, and be maintained
+without everything breaking every time something moves.
