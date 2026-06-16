@@ -746,3 +746,151 @@ Other risks:
 - **The client becomes brittle** — it fails completely if any one service is down.
 
 This is exactly the problem that the API Gateway in Part VI solves.
+
+---
+
+## Part VI - API Gateway
+
+### Guide Example: MovieGateway
+
+The Gateway is a single entry point. The user calls the Gateway and gets one unified response.
+Internally the Gateway calls all 3 movie services — the user never sees the ports.
+
+```
+User
+ |
+ v
+MovieGateway (single entry point)
+ |-- internally --> MovieService       :50051
+ |-- internally --> ReviewService      :50053
+ |-- internally --> RecommendationService :50054
+ |
+ v
+One unified response to the user
+```
+
+**How to run:**
+```bash
+cd movie-grpc
+mvn clean compile
+
+# 4 terminals — services first, then gateway
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.movie.MovieGrpcServer"
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.review.ReviewGrpcServer"
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.recommendation.RecommendationGrpcServer"
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.gateway.MovieGateway"
+```
+
+**Sample output for movie ID 1:**
+```
+----------------------------------------
+Movie:    Interstellar
+Director: Christopher Nolan
+Year:     2014
+
+Reviews:
+  - Excellent sci-fi film. (Rating: 5) - Ana
+  - Visually impressive. (Rating: 4) - Luis
+
+Recommendations:
+  - Inception
+  - Contact
+  - 2001: A Space Odyssey
+----------------------------------------
+```
+
+---
+
+### Exercise 6: WellnessGateway
+
+A Gateway that centralizes access to all 3 wellness microservices.
+The user sees one menu — the Gateway hides the 3 internal ports.
+
+#### Gateway operations
+
+| Operation | What it does internally |
+|---|---|
+| Request appointment | calls AppointmentService :50052 |
+| Cancel appointment | calls AppointmentService :50052 |
+| Get wellness summary | calls all 3 services and combines the result |
+| Reserve gym session | calls GymService :50056 |
+
+#### Architecture
+
+```
+User
+ |
+ v
+WellnessGateway (single entry point)
+ |-- AppointmentService :50052  (hidden from user)
+ |-- MedicalService     :50055  (hidden from user)
+ |-- GymService         :50056  (hidden from user)
+```
+
+#### Key design point
+
+`getStudentWellnessSummary` is the most important operation:
+it calls 3 services internally and combines the results into one response.
+This is the main value of a Gateway — aggregation.
+
+#### How to run
+
+```bash
+cd movie-grpc
+mvn clean compile
+
+# 4 terminals
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.wellness.AppointmentGrpcServer"
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.medical.MedicalGrpcServer"
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.gym.GymGrpcServer"
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.gateway.WellnessGateway"
+```
+
+---
+
+## Reflection Questions - Part VI
+
+### 1. What does the Gateway simplify for the client?
+
+Before the Gateway (Part V), the client needed to:
+- Know 3 different ports (50052, 50055, 50056)
+- Open 3 separate gRPC channels
+- Call each service independently
+- Combine the results itself
+
+After the Gateway, the client:
+- Knows only one entry point
+- Calls one operation and gets one combined response
+- Does not know how many services exist or where they are
+
+If a service moves to a new port or a new machine, only the Gateway configuration changes.
+The client code does not change at all.
+
+### 2. What complexity does it add to the system?
+
+The Gateway adds one more component that can fail.
+
+New problems:
+- **Single point of failure.** If the Gateway crashes, the user loses access to everything — even if all 3 microservices are still running.
+- **New bottleneck.** All traffic goes through the Gateway. If many users connect at the same time, the Gateway becomes slow.
+- **More to deploy and monitor.** In production you need the Gateway to always be running, restarting automatically if it fails, and you need to watch its logs.
+- **Latency increases.** Every request now has two network hops: user → Gateway → service, instead of one.
+
+In a real system you solve this with load balancers, multiple Gateway instances, and health checks.
+
+### 3. What would happen if the Gateway starts to contain too much business logic?
+
+The Gateway becomes an "API monolith" — which defeats the purpose of microservices.
+
+Signs that a Gateway has too much logic:
+- It validates business rules (e.g., "a student can only reserve 2 sessions per week")
+- It stores data (e.g., keeps a local copy of appointments)
+- It makes decisions about which service to call based on complex conditions
+
+When this happens:
+- **Every feature change requires touching the Gateway** — the same problem as a monolith.
+- **Microservices lose their independence** — they cannot be understood or tested without the Gateway.
+- **The Gateway becomes the hardest piece to change** — nobody wants to touch it because it does too much.
+
+The rule: the Gateway should only **route and aggregate**.
+Business logic belongs in the services.
