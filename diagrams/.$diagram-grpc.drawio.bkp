@@ -1,0 +1,91 @@
+<mxfile host="app.diagrams.net" modified="2026-06-15T00:00:00.000Z" agent="draw.io" version="24.5.3" type="device">
+  <diagram name="Part IV - gRPC" id="grpc-diagram">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="2" value="Part IV — gRPC: Movie + Wellness System" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="30" width="600" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Proto file -->
+        <mxCell id="3" value="&lt;b&gt;movie.proto&lt;/b&gt;&lt;br&gt;&lt;i&gt;defines services + messages&lt;/i&gt;&lt;br&gt;→ mvn compile → generated classes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="330" y="80" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow proto → client stub -->
+        <mxCell id="4" value="generates stub" style="edgeStyle=elbowEdgeStyle;html=1;exitX=0;exitY=1;entryX=0.5;entryY=0;strokeColor=#d6b656;dashed=1;fontColor=#A0522D;" edge="1" parent="1" source="3" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow proto → server base -->
+        <mxCell id="4b" value="generates base class" style="edgeStyle=elbowEdgeStyle;html=1;exitX=1;exitY=1;entryX=0.5;entryY=0;strokeColor=#d6b656;dashed=1;fontColor=#A0522D;" edge="1" parent="1" source="3" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Client -->
+        <mxCell id="5" value="&lt;b&gt;AppointmentGrpcClient&lt;/b&gt;&lt;br&gt;AppointmentServiceBlockingStub&lt;br&gt;channel → localhost:50052" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="220" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow client → server (request) -->
+        <mxCell id="6" value="RequestAppointment(request)" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;strokeColor=#555555;" edge="1" parent="1" source="5" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow server → client (response) -->
+        <mxCell id="6b" value="AppointmentResponse" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.7;exitDx=0;exitDy=0;entryX=1;entryY=0.7;entryDx=0;entryDy=0;strokeColor=#82b366;dashed=1;" edge="1" parent="1" source="7" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- AppointmentGrpcServer -->
+        <mxCell id="7" value="&lt;b&gt;AppointmentGrpcServer&lt;/b&gt;&lt;br&gt;port 50052&lt;br&gt;extends AppointmentServiceGrpc.Impl" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="550" y="220" width="240" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow server → data -->
+        <mxCell id="8" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#9673a6;" edge="1" parent="1" source="7" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- HashMap -->
+        <mxCell id="9" value="&lt;b&gt;HashMap&amp;lt;String, Appointment&amp;gt;&lt;/b&gt;&lt;br&gt;in memory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="580" y="360" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Transport label -->
+        <mxCell id="10" value="HTTP/2 + Protocol Buffers" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="310" y="242" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Wellness system label -->
+        <mxCell id="11" value="&lt;b&gt;Wellness System — 3 services called separately by WellnessSystemClient&lt;/b&gt;" style="text;html=1;strokeColor=#d6b656;fillColor=#ffe6cc;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="450" width="750" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Appt service small -->
+        <mxCell id="12" value="&lt;b&gt;AppointmentGrpcServer&lt;/b&gt;&lt;br&gt;port 50052" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="500" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Medical service small -->
+        <mxCell id="13" value="&lt;b&gt;MedicalGrpcServer&lt;/b&gt;&lt;br&gt;port 50055" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="310" y="500" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Gym service small -->
+        <mxCell id="14" value="&lt;b&gt;GymGrpcServer&lt;/b&gt;&lt;br&gt;port 50056" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="560" y="500" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Problem note -->
+        <mxCell id="15" value="⚠ Client must know all ports — problem that Part VI (Gateway) solves" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="565" width="700" height="30" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

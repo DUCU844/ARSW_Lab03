@@ -1,0 +1,93 @@
+<mxfile host="app.diagrams.net" modified="2026-06-15T00:00:00.000Z" agent="draw.io" version="24.5.3" type="device">
+  <diagram name="Part V - Microservices" id="microservices-diagram">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="2" value="Part V — Microservices: Movie + Wellness Platform" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="30" width="700" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Movie System boundary -->
+        <mxCell id="msbound" value="Movie System" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.lean_mapping.electronic_info_flow_edge;html=1;whiteSpace=wrap;fillColor=none;strokeColor=#6c8ebf;strokeWidth=2;dashed=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;fontSize=12;fontStyle=1;fontColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="380" height="210" as="geometry" />
+        </mxCell>
+
+        <!-- MovieService -->
+        <mxCell id="3" value="&lt;b&gt;MovieGrpcServer&lt;/b&gt;&lt;br&gt;port 50051&lt;br&gt;movie data only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="110" width="160" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- ReviewService -->
+        <mxCell id="4" value="&lt;b&gt;ReviewGrpcServer&lt;/b&gt;&lt;br&gt;port 50053&lt;br&gt;reviews only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="260" y="110" width="160" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- RecommendationService -->
+        <mxCell id="5" value="&lt;b&gt;RecommendationGrpcServer&lt;/b&gt;&lt;br&gt;port 50054&lt;br&gt;recommendations only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="200" width="340" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- Wellness boundary -->
+        <mxCell id="wsbound" value="Wellness System" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.lean_mapping.electronic_info_flow_edge;html=1;whiteSpace=wrap;fillColor=none;strokeColor=#d6b656;strokeWidth=2;dashed=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;fontSize=12;fontStyle=1;fontColor=#b46504;" vertex="1" parent="1">
+          <mxGeometry x="490" y="80" width="420" height="210" as="geometry" />
+        </mxCell>
+
+        <!-- AppointmentService -->
+        <mxCell id="6" value="&lt;b&gt;AppointmentGrpcServer&lt;/b&gt;&lt;br&gt;port 50052&lt;br&gt;appointments only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="510" y="110" width="175" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- MedicalService -->
+        <mxCell id="7" value="&lt;b&gt;MedicalGrpcServer&lt;/b&gt;&lt;br&gt;port 50055&lt;br&gt;specialties only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="710" y="110" width="175" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- GymService -->
+        <mxCell id="8" value="&lt;b&gt;GymGrpcServer&lt;/b&gt;&lt;br&gt;port 50056&lt;br&gt;gym sessions only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="510" y="200" width="375" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- MovieSystemClient -->
+        <mxCell id="9" value="&lt;b&gt;MovieSystemClient&lt;/b&gt;&lt;br&gt;3 separate channels" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="130" y="370" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- WellnessSystemClient -->
+        <mxCell id="10" value="&lt;b&gt;WellnessSystemClient&lt;/b&gt;&lt;br&gt;3 separate channels" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="600" y="370" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows movie client → services -->
+        <mxCell id="11a" value=":50051" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.3;exitY=0;entryX=0.5;entryY=1;strokeColor=#6c8ebf;" edge="1" parent="1" source="9" target="3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="11b" value=":50053" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.7;exitY=0;entryX=0.5;entryY=1;strokeColor=#6c8ebf;" edge="1" parent="1" source="9" target="4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="11c" value=":50054" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;strokeColor=#6c8ebf;" edge="1" parent="1" source="9" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows wellness client → services -->
+        <mxCell id="12a" value=":50052" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.2;exitY=0;entryX=0.5;entryY=1;strokeColor=#d6b656;" edge="1" parent="1" source="10" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="12b" value=":50055" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.8;exitY=0;entryX=0.5;entryY=1;strokeColor=#d6b656;" edge="1" parent="1" source="10" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="12c" value=":50056" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;strokeColor=#d6b656;" edge="1" parent="1" source="10" target="8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Principles -->
+        <mxCell id="13" value="&lt;b&gt;Microservice Principles&lt;/b&gt;&lt;hr/&gt;✓ Single responsibility per service&lt;br&gt;✓ Independent deploy + scale&lt;br&gt;✓ Own data, own port, own proto file&lt;br&gt;&lt;font color=&quot;#FF0000&quot;&gt;✗ Client still knows all ports (→ Part VI fixes this)&lt;/font&gt;" style="text;html=1;strokeColor=#999999;fillColor=#f5f5f5;fontColor=#333333;align=left;verticalAlign=top;spacingLeft=8;overflow=hidden;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="460" width="400" height="110" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

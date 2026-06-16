@@ -1,0 +1,67 @@
+<mxfile host="app.diagrams.net" modified="2026-06-15T00:00:00.000Z" agent="draw.io" version="24.5.3" type="device">
+  <diagram name="Part II - HTTP" id="http-diagram">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="2" value="Part II — HTTP: Classroom Management" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="30" width="500" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Browser client -->
+        <mxCell id="3" value="&lt;b&gt;Browser&lt;/b&gt;&lt;br&gt;GET only" style="shape=mxgraph.cisco.computers_and_peripherals.pc;html=1;pointerEvents=1;dashed=0;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="100" width="70" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- curl client -->
+        <mxCell id="4" value="&lt;b&gt;curl / Postman&lt;/b&gt;&lt;br&gt;GET + POST" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="210" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Any language client -->
+        <mxCell id="5" value="&lt;b&gt;Any Language&lt;/b&gt;&lt;br&gt;HTTP client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="300" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows to server -->
+        <mxCell id="6" value="GET /rooms?id=E303" style="edgeStyle=elbowEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.3;strokeColor=#6c8ebf;" edge="1" parent="1" source="3" target="8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7a" value="POST /rooms/reserve?id=E303" style="edgeStyle=elbowEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeColor=#6c8ebf;" edge="1" parent="1" source="4" target="8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7b" value="" style="edgeStyle=elbowEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.7;strokeColor=#6c8ebf;" edge="1" parent="1" source="5" target="8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ClassroomHttpServer -->
+        <mxCell id="8" value="&lt;b&gt;ClassroomHttpServer&lt;/b&gt;&lt;br&gt;port 8081&lt;br&gt;&lt;br&gt;handle() checks:&lt;br&gt;method + path + query" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="290" y="190" width="210" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: server → repo -->
+        <mxCell id="9" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeColor=#555555;" edge="1" parent="1" source="8" target="10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ClassroomRepository -->
+        <mxCell id="10" value="&lt;b&gt;ClassroomRepository&lt;/b&gt;&lt;br&gt;HashMap in memory&lt;br&gt;(same as Part I)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="580" y="205" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Routes table -->
+        <mxCell id="11" value="&lt;b&gt;HTTP Routes&lt;/b&gt;&lt;hr/&gt;&lt;font color=&quot;#0000FF&quot;&gt;GET&lt;/font&gt;  /rooms → list all classrooms&lt;br&gt;&lt;font color=&quot;#0000FF&quot;&gt;GET&lt;/font&gt;  /rooms?id=E303 → check one&lt;br&gt;&lt;font color=&quot;#FF6600&quot;&gt;POST&lt;/font&gt; /rooms/reserve?id=E303 → reserve&lt;br&gt;&lt;font color=&quot;#FF6600&quot;&gt;POST&lt;/font&gt; /rooms/release?id=E303 → release" style="text;html=1;strokeColor=#999999;fillColor=#f5f5f5;fontColor=#333333;align=left;verticalAlign=top;spacingLeft=8;overflow=hidden;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="290" y="340" width="490" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Advantage note -->
+        <mxCell id="12" value="✓ Any browser, curl, or language can connect — no custom client needed" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="400" width="200" height="50" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
