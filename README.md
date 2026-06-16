@@ -487,3 +487,139 @@ RMI only works between Java programs. It uses Java serialization to send objects
 If a Python or JavaScript client tried to connect to the RMI registry, it would fail completely. There is no standard way to read Java-serialized objects in other languages.
 
 This is the main limitation of RMI. A system built with RMI is **locked to Java on both sides**. gRPC (Part IV) solves this: the `.proto` contract generates code for any language, so a Java server can talk to a Python client.
+
+---
+
+## Part IV - gRPC
+
+### Guide Example: Movie gRPC Server
+
+gRPC is modern RPC. The contract lives in a `.proto` file.
+Maven reads that file and generates all the Java classes automatically.
+The server and client only write business logic.
+
+```
+movie.proto  →  mvn compile  →  generated classes
+                                      ↓
+                           MovieGrpcServer uses them
+                           MovieGrpcClient uses them
+```
+
+**How to run:**
+```bash
+cd movie-grpc
+mvn clean compile
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.movie.MovieGrpcServer"
+
+# In another terminal:
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.movie.MovieGrpcClient"
+```
+
+**Troubleshooting: port already in use (port 50051)**
+```powershell
+netstat -ano | findstr :50051
+taskkill /PID <PID> /F
+```
+
+---
+
+### Exercise 4: University Wellness Appointment System with gRPC
+
+A gRPC service to manage wellness appointments for students.
+Contract defined in `appointment.proto`.
+
+#### Contract (`appointment.proto`)
+
+```protobuf
+service AppointmentService {
+  rpc RequestAppointment (AppointmentRequest)  returns (AppointmentResponse);
+  rpc CancelAppointment  (CancelRequest)       returns (CancelResponse);
+  rpc GetAppointments    (StudentRequest)      returns (AppointmentList);
+}
+```
+
+#### Business rules
+
+- New appointment always starts with status `REQUESTED`
+- `GetAppointments` returns only active (non-cancelled) appointments
+- `CancelAppointment` changes status to `CANCELLED` — does not delete from memory
+- Each appointment gets a random short ID generated with `UUID`
+
+#### Architecture
+
+```
+AppointmentGrpcClient
+         |
+         | channel → localhost:50052
+         v
+AppointmentGrpcServer
+         |
+         | AppointmentServiceImpl (extends generated base class)
+         | HashMap<String, Appointment> in memory
+         v
+Returns AppointmentResponse / CancelResponse / AppointmentList
+```
+
+#### How to run
+
+```bash
+cd movie-grpc
+mvn clean compile
+
+# Terminal 1
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.wellness.AppointmentGrpcServer"
+
+# Terminal 2
+mvn exec:java -Dexec.mainClass="edu.eci.arsw.wellness.AppointmentGrpcClient"
+```
+
+**Troubleshooting: port already in use (port 50052)**
+```powershell
+netstat -ano | findstr :50052
+taskkill /PID <PID> /F
+```
+
+---
+
+## Reflection Questions - Part IV
+
+### 1. Why is the `.proto` file considered a contract?
+
+A contract is a document that both sides (client and server) must follow.
+The `.proto` file describes exactly:
+- What operations exist (`rpc RequestAppointment ...`)
+- What data each operation receives (`AppointmentRequest`)
+- What data each operation returns (`AppointmentResponse`)
+- What types each field has (`string`, `int32`, `bool`, enum)
+
+If the server changes a field name or type in the `.proto`, the client stops compiling.
+Both sides are forced to agree on the same structure.
+This is much stronger than text conventions (Part I) or Java interfaces (Part III).
+
+### 2. How easy would it be to create a client in another language?
+
+Very easy. This is one of the biggest advantages of gRPC.
+
+Steps for a Python client:
+1. Copy the `.proto` file to the Python project
+2. Run `python -m grpc_tools.protoc` to generate Python classes
+3. Write the client using the generated classes — same operations, same field names
+
+The `.proto` file is the same for every language.
+A Java server on port 50052 can talk to a Python client, a Go client, a C++ client — all at the same time.
+This is impossible with RMI.
+
+### 3. What differences do you find between RMI and gRPC?
+
+| Topic | RMI | gRPC |
+|---|---|---|
+| Contract | Java interface (`.java`) | Proto file (`.proto`) |
+| Languages | Java only | Any language |
+| Serialization | Java serialization (binary, Java-only) | Protocol Buffers (binary, universal) |
+| Code generation | No (you write everything) | Yes (Maven generates classes from `.proto`) |
+| Transport | Java RMI protocol | HTTP/2 |
+| Performance | Slower (Java serialization overhead) | Faster (Protobuf is very compact) |
+| Learning curve | Simpler to start | Requires understanding proto files |
+
+Both use the RPC model: the client calls a method that runs on the server.
+The key difference is that gRPC is language-agnostic and generates code automatically.
