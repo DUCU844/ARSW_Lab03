@@ -1,0 +1,58 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
+  <diagram name="Part III - RMI" id="rmi-diagram">
+    <mxGraphModel dx="1028" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" value="Part III — RMI: Lab Equipment Inventory" vertex="1">
+          <mxGeometry height="30" width="600" x="100" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sub" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=11;fontColor=#666666;" value="The client calls methods like local Java code — but they run on the server" vertex="1">
+          <mxGeometry height="20" width="600" x="100" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;LabRmiClient&lt;/b&gt;&lt;br&gt;&lt;br&gt;service.reservarEquipo(&quot;PC-01&quot;)&lt;br&gt;&lt;i&gt;looks like a local call&lt;/i&gt;" vertex="1">
+          <mxGeometry height="80" width="190" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="4" edge="1" parent="1" source="3" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;strokeColor=#d6b656;dashed=1;fontColor=#A0522D;" target="5" value="1. lookup(&quot;labService&quot;)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4b" edge="1" parent="1" source="5" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.7;exitDx=0;exitDy=0;entryX=1;entryY=0.7;entryDx=0;entryDy=0;strokeColor=#d6b656;dashed=1;fontColor=#A0522D;" target="3" value="2. remote reference (stub)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d6b656;fontSize=11;" value="&lt;b&gt;RMI Registry&lt;/b&gt;&lt;br&gt;port 24000&lt;br&gt;&lt;i&gt;phone book for services&lt;/i&gt;" vertex="1">
+          <mxGeometry height="80" width="180" x="480" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="6" edge="1" parent="1" source="3" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#82b366;" target="7" value="3. method call (through network)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="280" />
+              <mxPoint x="720" y="280" />
+              <mxPoint x="720" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6b" edge="1" parent="1" source="7" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#82b366;dashed=1;" target="3" value="4. result: true / false">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="750" y="310" />
+              <mxPoint x="270" y="310" />
+              <mxPoint x="270" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="&lt;b&gt;LabServiceImpl&lt;/b&gt;&lt;br&gt;extends UnicastRemoteObject&lt;br&gt;implements LabService" vertex="1">
+          <mxGeometry height="80" width="220" x="750" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="8" edge="1" parent="1" source="7" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#9673a6;" target="9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" value="&lt;b&gt;HashMap in memory&lt;/b&gt;&lt;br&gt;PC-01 | PC-02 | RP-01 | AR-01 | LP-01" vertex="1">
+          <mxGeometry height="60" width="320" x="700" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="10" parent="1" style="text;html=1;strokeColor=#999999;fillColor=#f5f5f5;fontColor=#333333;align=left;verticalAlign=top;spacingLeft=8;overflow=hidden;fontSize=11;" value="&lt;b&gt;LabService interface (the contract)&lt;/b&gt;&lt;hr/&gt;List&amp;lt;String&amp;gt; consultarEquipos()&lt;br&gt;String consultarEquipo(String codigo)&lt;br&gt;boolean reservarEquipo(String codigo)&lt;br&gt;boolean liberarEquipo(String codigo)&lt;br&gt;&lt;font color=&quot;#FF0000&quot;&gt;⚠ Java only — no other languages&lt;/font&gt;" vertex="1">
+          <mxGeometry height="110" width="430" x="60" y="380" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

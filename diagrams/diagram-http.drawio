@@ -1,0 +1,46 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
+  <diagram name="Part II - HTTP" id="http-diagram">
+    <mxGraphModel dx="3317" dy="628" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" value="Part II — HTTP: Classroom Management" vertex="1">
+          <mxGeometry height="30" width="500" x="-2020" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="1" style="shape=mxgraph.cisco.computers_and_peripherals.pc;html=1;pointerEvents=1;dashed=0;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;" value="&lt;b&gt;Browser&lt;/b&gt;&lt;br&gt;GET only" vertex="1">
+          <mxGeometry height="70" width="70" x="-2090" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;curl / Postman&lt;/b&gt;&lt;br&gt;GET + POST" vertex="1">
+          <mxGeometry height="50" width="120" x="-2110" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;Any Language&lt;/b&gt;&lt;br&gt;HTTP client" vertex="1">
+          <mxGeometry height="50" width="120" x="-2110" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="6" edge="1" parent="1" source="3" style="edgeStyle=elbowEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.3;strokeColor=#6c8ebf;" target="8" value="GET /rooms?id=E303">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7a" edge="1" parent="1" source="4" style="edgeStyle=elbowEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeColor=#6c8ebf;" target="8" value="POST /rooms/reserve?id=E303">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7b" edge="1" parent="1" source="5" style="edgeStyle=elbowEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.7;strokeColor=#6c8ebf;" target="8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" value="&lt;b&gt;ClassroomHttpServer&lt;/b&gt;&lt;br&gt;port 8081&lt;br&gt;&lt;br&gt;handle() checks:&lt;br&gt;method + path + query" vertex="1">
+          <mxGeometry height="100" width="210" x="-1790" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="9" edge="1" parent="1" source="8" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeColor=#555555;" target="10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" value="&lt;b&gt;ClassroomRepository&lt;/b&gt;&lt;br&gt;HashMap in memory&lt;br&gt;(same as Part I)" vertex="1">
+          <mxGeometry height="70" width="200" x="-1510" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="11" parent="1" style="text;html=1;strokeColor=#999999;fillColor=#f5f5f5;fontColor=#333333;align=left;verticalAlign=top;spacingLeft=8;overflow=hidden;fontSize=11;" value="&lt;b&gt;HTTP Routes&lt;/b&gt;&lt;hr/&gt;&lt;font color=&quot;#0000FF&quot;&gt;GET&lt;/font&gt;  /rooms → list all classrooms&lt;br&gt;&lt;font color=&quot;#0000FF&quot;&gt;GET&lt;/font&gt;  /rooms?id=E303 → check one&lt;br&gt;&lt;font color=&quot;#FF6600&quot;&gt;POST&lt;/font&gt; /rooms/reserve?id=E303 → reserve&lt;br&gt;&lt;font color=&quot;#FF6600&quot;&gt;POST&lt;/font&gt; /rooms/release?id=E303 → release" vertex="1">
+          <mxGeometry height="100" width="490" x="-1800" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="12" parent="1" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;fontSize=11;" value="✓ Any browser, curl, or language can connect — no custom client needed" vertex="1">
+          <mxGeometry height="40" width="370" x="-2190" y="410" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

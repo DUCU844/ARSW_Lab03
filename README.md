@@ -1,5 +1,37 @@
 # ARSW Lab 03 - Distributed Architectures with Java
 
+**Course:** Arquitecturas de Software (ARSW)  
+**Institution:** Escuela Colombiana de Ingeniería Julio Garavito  
+**Author:** Adrián Ducuara 
+
+---
+
+## Objectives
+
+- Understand how the same system can be implemented using different distributed communication technologies.
+- Identify the limitations of each approach and how the next one solves them.
+- Design and implement TCP, HTTP, RMI, and gRPC services in Java.
+- Apply the microservices principle: one responsibility per service, independent deploy, own data.
+- Use an API Gateway to hide internal complexity from the client.
+- Design a complete microservice architecture for a real academic use case (ECICIENCIA).
+
+---
+
+## Summary: Architectural Evolution
+
+Each part of this lab solves a problem left by the previous one:
+
+| Part | Technology    | Problem it solves                                    | Problem it leaves                           |
+|------|---------------|------------------------------------------------------|---------------------------------------------|
+| I    | TCP Sockets   | Basic network communication                          | Protocol is informal text, Java-only client |
+| II   | HTTP          | Any client can connect, standard format              | Contract still informal, no framework       |
+| III  | RMI           | Typed method calls, formal Java interface            | Java-only on both sides                     |
+| IV   | gRPC          | Language-agnostic contract (.proto), code generation | Client must know all service ports          |
+| V    | Microservices | One responsibility per service, independent scaling  | Client complexity grows with each service   |
+| VI   | API Gateway   | Single entry point, aggregation, hides ports         | New single point of failure                 |
+
+---
+
 This lab shows how the same system can be built using different communication styles.
 Each part solves a problem that the previous part left open.
 
@@ -45,14 +77,16 @@ The server reads the message, splits it by comma, and runs the correct operation
 
 #### Protocol
 
-| Client sends | Server responds |
-|---|---|
-| `CONSULTAR_SALON,E303` | `SALON_DISPONIBLE` or `SALON_RESERVADO` |
-| `RESERVAR_SALON,E303` | `RESERVA_EXITOSA` or `ERROR_OPERACION_INVALIDA` |
-| `LIBERAR_SALON,E303` | `LIBERACION_EXITOSA` or `ERROR_OPERACION_INVALIDA` |
-| Any operation with bad ID | `ERROR_SALON_NO_EXISTE` |
+| Client sends              | Server responds                                    |
+|---------------------------|----------------------------------------------------|
+| `CONSULTAR_SALON,E303`    | `SALON_DISPONIBLE` or `SALON_RESERVADO`            |
+| `RESERVAR_SALON,E303`     | `RESERVA_EXITOSA` or `ERROR_OPERACION_INVALIDA`    |
+| `LIBERAR_SALON,E303`      | `LIBERACION_EXITOSA` or `ERROR_OPERACION_INVALIDA` |
+| Any operation with bad ID | `ERROR_SALON_NO_EXISTE`                            |
 
 #### Architecture
+
+![TCP Architecture Diagram](diagrams/diagram-tcp.png)
 
 ```
 ClassroomClient
@@ -74,11 +108,11 @@ ClassroomServer sends response back to client
 #### Initial data
 
 | Classroom | Available |
-|---|---|
-| E301 | true |
-| E302 | false |
-| E303 | false |
-| E304 | true |
+|-----------|-----------|
+| E301      | true      |
+| E302      | false     |
+| E303      | false     |
+| E304      | true      |
 
 #### How to run
 
@@ -223,11 +257,11 @@ Then open in browser: `http://localhost:8080/movie?id=1`
 
 **What changed from TCP:**
 
-| TCP | HTTP |
-|---|---|
+| TCP                     | HTTP                                |
+|-------------------------|-------------------------------------|
 | `MOVIE:1` — custom text | `GET /movie?id=1` — standard format |
-| Only Java clients | Any browser or tool |
-| Protocol in your head | Method + path + parameters |
+| Only Java clients       | Any browser or tool                 |
+| Protocol in your head   | Method + path + parameters          |
 
 ---
 
@@ -238,14 +272,16 @@ No Java client needed — test with browser, curl, or Postman.
 
 #### Routes
 
-| Method | Path | What it does |
-|---|---|---|
-| `GET` | `/rooms` | List all classrooms and their status |
-| `GET` | `/rooms?id=E303` | Check status of one classroom |
-| `POST` | `/rooms/reserve?id=E303` | Reserve a classroom |
-| `POST` | `/rooms/release?id=E303` | Release a classroom |
+| Method | Path                     | What it does                         |
+|--------|--------------------------|--------------------------------------|
+| `GET`  | `/rooms`                 | List all classrooms and their status |
+| `GET`  | `/rooms?id=E303`         | Check status of one classroom        |
+| `POST` | `/rooms/reserve?id=E303` | Reserve a classroom                  |
+| `POST` | `/rooms/release?id=E303` | Release a classroom                  |
 
 #### Architecture
+
+![HTTP Architecture Diagram](diagrams/diagram-http.png)
 
 ```
 Browser / curl / Postman
@@ -406,6 +442,8 @@ boolean liberarEquipo(String codigo)
 
 #### Architecture
 
+![RMI Architecture Diagram](diagrams/diagram-rmi.png)
+
 ```
 LabRmiClient
      |
@@ -547,6 +585,8 @@ service AppointmentService {
 
 #### Architecture
 
+![gRPC Architecture Diagram](diagrams/diagram-grpc.png)
+
 ```
 AppointmentGrpcClient
          |
@@ -611,15 +651,15 @@ This is impossible with RMI.
 
 ### 3. What differences do you find between RMI and gRPC?
 
-| Topic | RMI | gRPC |
-|---|---|---|
-| Contract | Java interface (`.java`) | Proto file (`.proto`) |
-| Languages | Java only | Any language |
-| Serialization | Java serialization (binary, Java-only) | Protocol Buffers (binary, universal) |
-| Code generation | No (you write everything) | Yes (Maven generates classes from `.proto`) |
-| Transport | Java RMI protocol | HTTP/2 |
-| Performance | Slower (Java serialization overhead) | Faster (Protobuf is very compact) |
-| Learning curve | Simpler to start | Requires understanding proto files |
+| Topic           | RMI                                    | gRPC                                        |
+|-----------------|----------------------------------------|---------------------------------------------|
+| Contract        | Java interface (`.java`)               | Proto file (`.proto`)                       |
+| Languages       | Java only                              | Any language                                |
+| Serialization   | Java serialization (binary, Java-only) | Protocol Buffers (binary, universal)        |
+| Code generation | No (you write everything)              | Yes (Maven generates classes from `.proto`) |
+| Transport       | Java RMI protocol                      | HTTP/2                                      |
+| Performance     | Slower (Java serialization overhead)   | Faster (Protobuf is very compact)           |
+| Learning curve  | Simpler to start                       | Requires understanding proto files          |
 
 Both use the RPC model: the client calls a method that runs on the server.
 The key difference is that gRPC is language-agnostic and generates code automatically.
@@ -667,13 +707,15 @@ The wellness system from Part IV is now decomposed into 3 independent microservi
 
 #### Service map
 
-| Service | Responsibility | Port |
-|---|---|---|
-| `AppointmentService` | Create, cancel, and list appointments | 50052 |
-| `MedicalService` | Manage medical specialties and availability | 50055 |
-| `GymService` | Manage gym sessions and reservations | 50056 |
+| Service              | Responsibility                              | Port  |
+|----------------------|---------------------------------------------|-------|
+| `AppointmentService` | Create, cancel, and list appointments       | 50052 |
+| `MedicalService`     | Manage medical specialties and availability | 50055 |
+| `GymService`         | Manage gym sessions and reservations        | 50056 |
 
 #### Architecture diagram
+
+![Microservices Architecture Diagram](diagrams/diagram-microservices.png)
 
 ```
 WellnessSystemClient
@@ -722,15 +764,15 @@ Each service was separated based on a different **business domain**:
 
 These are three different areas of the wellness center. In a real system, different teams would manage each one. Separating them means a change in `GymService` does not require touching `AppointmentService` at all.
 
-`RecreationService` was not implemented because the lab requires at least two. The design is the same pattern: one proto file, one server, one port, one responsibility.
+`RecreationService` was not implemented in this exercise. The pattern would be identical: one proto file, one server, one port, one responsibility.
 
 ### 2. What data belongs to each service?
 
-| Service | Its data |
-|---|---|
-| `AppointmentService` | Appointment ID, student ID, service type, date, status |
-| `MedicalService` | Specialty name, description, available dates per specialty |
-| `GymService` | Session time slots, capacity, availability |
+| Service              | Its data                                                   |
+|----------------------|------------------------------------------------------------|
+| `AppointmentService` | Appointment ID, student ID, service type, date, status     |
+| `MedicalService`     | Specialty name, description, available dates per specialty |
+| `GymService`         | Session time slots, capacity, availability                 |
 
 No service stores data that belongs to another. For example, `GymService` does not store which student has a medical appointment — that is `AppointmentService`'s data.
 
@@ -808,14 +850,16 @@ The user sees one menu — the Gateway hides the 3 internal ports.
 
 #### Gateway operations
 
-| Operation | What it does internally |
-|---|---|
-| Request appointment | calls AppointmentService :50052 |
-| Cancel appointment | calls AppointmentService :50052 |
+| Operation            | What it does internally                      |
+|----------------------|----------------------------------------------|
+| Request appointment  | calls AppointmentService :50052              |
+| Cancel appointment   | calls AppointmentService :50052              |
 | Get wellness summary | calls all 3 services and combines the result |
-| Reserve gym session | calls GymService :50056 |
+| Reserve gym session  | calls GymService :50056                      |
 
 #### Architecture
+
+![Gateway Architecture Diagram](diagrams/diagram-gateway.png)
 
 ```
 User
@@ -911,12 +955,12 @@ workshop spot reservation, capacity control, and activity search by time slot.
 
 #### Services and responsibilities
 
-| Service | Responsibility | Port |
-|---|---|---|
-| `AttendeeService` | Register and query event attendees | 50060 |
-| `ScheduleService` | Manage the full agenda: activities, time slots, locations | 50061 |
-| `ReservationService` | Reserve and cancel workshop spots, control capacity | 50062 |
-| `EcicienciaGateway` | Single entry point for all client operations | — |
+| Service              | Responsibility                                            | Port  |
+|----------------------|-----------------------------------------------------------|-------|
+| `AttendeeService`    | Register and query event attendees                        | 50060 |
+| `ScheduleService`    | Manage the full agenda: activities, time slots, locations | 50061 |
+| `ReservationService` | Reserve and cancel workshop spots, control capacity       | 50062 |
+| `EcicienciaGateway`  | Single entry point for all client operations              | —     |
 
 #### Why not one monolithic service?
 
@@ -940,6 +984,8 @@ With three services:
 ---
 
 ### Architecture Diagram
+
+![ECICIENCIA Architecture Diagram](diagrams/diagram-eciciencia.png)
 
 ```
                     User / Client
@@ -997,17 +1043,72 @@ service ReservationService {
 
 The `EcicienciaGateway` exposes these operations to the client:
 
-| Gateway operation | Internal calls |
-|---|---|
-| `registerAttendee(name, id, email, type)` | → AttendeeService.RegisterAttendee |
-| `getActivitySchedule()` | → ScheduleService.GetActivities |
-| `getActivitiesByTimeSlot(slot)` | → ScheduleService.GetActivitiesBySlot |
-| `reserveWorkshopSpot(attendeeId, activityId)` | → ReservationService.ReserveSpot |
-| `getActivityCapacity(activityId)` | → ReservationService.GetCapacity |
-| `getAttendeeProfile(attendeeId)` | → AttendeeService.GetAttendee + ReservationService.GetMyReservations (aggregated) |
+| Gateway operation                             | Internal calls                                                                    |
+|-----------------------------------------------|-----------------------------------------------------------------------------------|
+| `registerAttendee(name, id, email, type)`     | → AttendeeService.RegisterAttendee                                                |
+| `getActivitySchedule()`                       | → ScheduleService.GetActivities                                                   |
+| `getActivitiesByTimeSlot(slot)`               | → ScheduleService.GetActivitiesBySlot                                             |
+| `reserveWorkshopSpot(attendeeId, activityId)` | → ReservationService.ReserveSpot                                                  |
+| `getActivityCapacity(activityId)`             | → ReservationService.GetCapacity                                                  |
+| `getAttendeeProfile(attendeeId)`              | → AttendeeService.GetAttendee + ReservationService.GetMyReservations (aggregated) |
 
 The last operation (`getAttendeeProfile`) is the best example of Gateway value:
 the client makes one call and gets data from two different services combined.
+
+---
+
+---
+
+## Reflection Questions - ECICIENCIA
+
+### 1. Why is the platform divided into 3 services instead of one?
+
+The platform manages three completely different business domains that change for different reasons and at different times:
+
+- **Attendee data** changes when registration opens or closes — a few times before the event.
+- **Schedule data** changes when organizers update speakers, rooms, or time slots — several times during preparation.
+- **Reservation data** changes constantly during the event — every time someone reserves or cancels a spot.
+
+If all three were in one service:
+- A bug in the reservation capacity check could break attendee registration.
+- Updating the schedule requires touching the same codebase as the payment or identity logic.
+- The entire platform stops if one part crashes — during the event, this is unacceptable.
+- It is impossible to scale only the reservation logic during peak demand (e.g., when workshops open for registration).
+
+With three services, each can be deployed, updated, and scaled independently without affecting the others.
+
+### 2. What data belongs to each service and why should they not share it?
+
+| Service              | Its data                                                                                              | Why it owns it                                                      |
+|----------------------|-------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|
+| `AttendeeService`    | attendee ID, name, email, type (student / professor / external)                                       | Only this service knows who the person is                           |
+| `ScheduleService`    | activity ID, title, type, location, time slot, speaker                                                | Only this service knows what happens and when                       |
+| `ReservationService` | reservation ID, attendee ID (reference only), activity ID (reference only), status, capacity counters | Only this service knows who reserved what and how many spots remain |
+
+`ReservationService` stores `attendee_id` and `activity_id` as **references** — not copies of the attendee or activity data. If it needs the full name of an attendee, it calls `AttendeeService`. This keeps each service as the single source of truth for its own data.
+
+If two services share the same database table or the same data structure, a change in one service can silently break the other. Data isolation is what makes independent deployment safe.
+
+### 3. What does the EcicienciaGateway add beyond what the microservices already provide?
+
+The three microservices solve the problem of **how to build** the system. The Gateway solves the problem of **how to use** the system from the outside.
+
+Without the Gateway:
+- A client app must open 3 separate gRPC channels to 3 different ports.
+- If `ScheduleService` moves to a different machine, every client must be updated.
+- There is no single place to add authentication ("is this user allowed to reserve?") or logging ("who reserved what at what time?").
+- The client must combine responses from multiple services itself — complex error handling.
+
+The `getAttendeeProfile` operation shows the Gateway's value clearly:
+```
+Client calls: getAttendeeProfile("A001")
+Gateway calls internally:
+  1. AttendeeService.GetAttendee("A001")       → name, type
+  2. ReservationService.GetMyReservations("A001") → list of workshops
+Gateway returns: one combined profile
+```
+
+The client makes one call and gets aggregated data. It never knows two services were involved.
 
 ---
 

@@ -1,0 +1,70 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
+  <diagram name="Part IV - gRPC" id="grpc-diagram">
+    <mxGraphModel dx="1268" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" value="Part IV — gRPC: Movie + Wellness System" vertex="1">
+          <mxGeometry height="30" width="600" x="100" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d6b656;fontSize=11;" value="&lt;b&gt;movie.proto&lt;/b&gt;&lt;br&gt;&lt;i&gt;defines services + messages&lt;/i&gt;&lt;br&gt;→ mvn compile → generated classes" vertex="1">
+          <mxGeometry height="65" width="240" x="330" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="4" edge="1" parent="1" source="3" style="edgeStyle=elbowEdgeStyle;html=1;exitX=0;exitY=0.5;entryX=0.5;entryY=0;strokeColor=#d6b656;dashed=1;fontColor=#A0522D;exitDx=0;exitDy=0;" target="5" value="generates stub">
+          <mxGeometry relative="1" x="0.4766" as="geometry">
+            <mxPoint y="1" as="offset" />
+            <Array as="points">
+              <mxPoint x="170" y="170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4b" edge="1" parent="1" source="3" style="edgeStyle=elbowEdgeStyle;html=1;entryX=0.5;entryY=0;strokeColor=#d6b656;dashed=1;fontColor=#A0522D;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="7" value="generates base class">
+          <mxGeometry relative="1" x="0.2289" as="geometry">
+            <mxPoint y="1" as="offset" />
+            <Array as="points">
+              <mxPoint x="670" y="160" />
+            </Array>
+            <mxPoint x="600" y="100" as="sourcePoint" />
+            <mxPoint x="700" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;AppointmentGrpcClient&lt;/b&gt;&lt;br&gt;AppointmentServiceBlockingStub&lt;br&gt;channel → localhost:50052" vertex="1">
+          <mxGeometry height="70" width="220" x="60" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="6" edge="1" parent="1" source="5" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;strokeColor=#555555;" target="7" value="RequestAppointment(request)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6b" edge="1" parent="1" source="7" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.7;exitDx=0;exitDy=0;entryX=1;entryY=0.7;entryDx=0;entryDy=0;strokeColor=#82b366;dashed=1;" target="5" value="AppointmentResponse">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="&lt;b&gt;AppointmentGrpcServer&lt;/b&gt;&lt;br&gt;port 50052&lt;br&gt;extends AppointmentServiceGrpc.Impl" vertex="1">
+          <mxGeometry height="70" width="240" x="550" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="8" edge="1" parent="1" source="7" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#9673a6;" target="9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" value="&lt;b&gt;HashMap&amp;lt;String, Appointment&amp;gt;&lt;/b&gt;&lt;br&gt;in memory" vertex="1">
+          <mxGeometry height="55" width="200" x="580" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="10" parent="1" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;fontSize=11;" value="HTTP/2 + Protocol Buffers" vertex="1">
+          <mxGeometry height="30" width="200" x="320" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="11" parent="1" style="text;html=1;strokeColor=#d6b656;fillColor=#ffe6cc;align=center;fontSize=11;" value="&lt;b&gt;Wellness System — 3 services called separately by WellnessSystemClient&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="750" x="60" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="&lt;b&gt;AppointmentGrpcServer&lt;/b&gt;&lt;br&gt;port 50052" vertex="1">
+          <mxGeometry height="50" width="200" x="60" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="&lt;b&gt;MedicalGrpcServer&lt;/b&gt;&lt;br&gt;port 50055" vertex="1">
+          <mxGeometry height="50" width="200" x="310" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="&lt;b&gt;GymGrpcServer&lt;/b&gt;&lt;br&gt;port 50056" vertex="1">
+          <mxGeometry height="50" width="200" x="560" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="15" parent="1" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;fontSize=11;" value="⚠ Client must know all ports — problem that Part VI (Gateway) solves" vertex="1">
+          <mxGeometry height="30" width="700" x="60" y="565" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
