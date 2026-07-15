@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.movie";
+option java_outer_classname = "MovieProto";
+
+// This file is the formal contract for the MovieService.
+// It defines what operations exist, what data they receive, and what they return.
+// Maven reads this file and generates Java classes automatically.
+
+service MovieService {
+  rpc GetMovie (MovieRequest) returns (MovieResponse);
+}
+
+// The client sends this message to ask for a movie.
+message MovieRequest {
+  int32 id = 1;
+}
+
+// The server sends this message back with the movie data.
+// found = false means the movie was not found.
+message MovieResponse {
+  int32 id = 1;
+  string title = 2;
+  string director = 3;
+  int32 year = 4;
+  bool found = 5;
+}

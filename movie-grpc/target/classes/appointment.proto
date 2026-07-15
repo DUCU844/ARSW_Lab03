@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.wellness";
+option java_outer_classname = "AppointmentProto";
+
+// This is the formal contract for the wellness appointment system.
+// It defines 3 operations: request, cancel, and list appointments.
+
+// --- Enums ---
+
+// Types of medical service a student can request.
+enum ServiceType {
+  MEDICINE    = 0;
+  PSYCHOLOGY  = 1;
+  DENTISTRY   = 2;
+}
+
+// Status of an appointment.
+enum AppointmentStatus {
+  REQUESTED  = 0;
+  CANCELLED  = 1;
+  ATTENDED   = 2;
+}
+
+// --- Service ---
+
+service AppointmentService {
+  rpc RequestAppointment (AppointmentRequest)  returns (AppointmentResponse);
+  rpc CancelAppointment  (CancelRequest)       returns (CancelResponse);
+  rpc GetAppointments    (StudentRequest)      returns (AppointmentList);
+}
+
+// --- Messages ---
+
+// Request a new appointment.
+message AppointmentRequest {
+  string student_id   = 1;
+  ServiceType service = 2;
+  string date         = 3;
+}
+
+// Response after requesting an appointment.
+message AppointmentResponse {
+  string appointment_id = 1;
+  bool   success        = 2;
+  string message        = 3;
+}
+
+// Cancel an appointment by its ID.
+message CancelRequest {
+  string appointment_id = 1;
+}
+
+// Response after cancelling an appointment.
+message CancelResponse {
+  bool   success = 1;
+  string message = 2;
+}
+
+// Ask for all appointments of one student.
+message StudentRequest {
+  string student_id = 1;
+}
+
+// One appointment in the list.
+message Appointment {
+  string            appointment_id = 1;
+  string            student_id     = 2;
+  ServiceType       service        = 3;
+  string            date           = 4;
+  AppointmentStatus status         = 5;
+}
+
+// List of appointments returned to the client.
+message AppointmentList {
+  repeated Appointment appointments = 1;
+}

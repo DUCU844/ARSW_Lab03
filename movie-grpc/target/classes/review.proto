@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.review";
+option java_outer_classname = "ReviewProto";
+
+// Contract for the ReviewService microservice.
+// This service only handles movie reviews — nothing else.
+// It runs on its own port (50053), independent from MovieService.
+
+service ReviewService {
+  rpc GetReviews (ReviewRequest) returns (ReviewList);
+}
+
+// The client sends the movie ID to get its reviews.
+message ReviewRequest {
+  int32 movie_id = 1;
+}
+
+// One review written by one person.
+message Review {
+  string author  = 1;
+  string comment = 2;
+  int32  rating  = 3;
+}
+
+// The server responds with a list of reviews.
+message ReviewList {
+  repeated Review reviews = 1;
+}

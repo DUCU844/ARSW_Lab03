@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.eciciencia.reservation";
+option java_outer_classname = "ReservationProto";
+
+// Contract for the ReservationService microservice.
+// This service manages workshop spot reservations and capacity control.
+// It does not know the full activity details — that belongs to ScheduleService.
+// It does not know attendee details — that belongs to AttendeeService.
+
+service ReservationService {
+  rpc ReserveSpot      (ReservationRequest)       returns (ReservationResponse);
+  rpc CancelReservation(CancelReservationRequest) returns (CancelReservationResponse);
+  rpc GetCapacity      (CapacityRequest)          returns (CapacityResponse);
+  rpc GetMyReservations(AttendeeReservationRequest) returns (ReservationList);
+}
+
+// Ask to reserve a spot in one activity.
+message ReservationRequest {
+  string attendee_id  = 1;
+  string activity_id  = 2;
+}
+
+// Response after trying to reserve a spot.
+message ReservationResponse {
+  string reservation_id = 1;
+  bool   success        = 2;
+  string message        = 3;
+}
+
+// Ask to cancel a reservation.
+message CancelReservationRequest {
+  string reservation_id = 1;
+}
+
+// Response after cancelling a reservation.
+message CancelReservationResponse {
+  bool   success = 1;
+  string message = 2;
+}
+
+// Ask for the remaining capacity of one activity.
+message CapacityRequest {
+  string activity_id = 1;
+}
+
+// Current capacity status of one activity.
+message CapacityResponse {
+  string activity_id     = 1;
+  int32  total_capacity  = 2;
+  int32  spots_taken     = 3;
+  int32  spots_available = 4;
+}
+
+// Ask for all reservations of one attendee.
+message AttendeeReservationRequest {
+  string attendee_id = 1;
+}
+
+// One reservation entry.
+message Reservation {
+  string reservation_id = 1;
+  string attendee_id    = 2;
+  string activity_id    = 3;
+  string status         = 4;
+}
+
+// List of reservations.
+message ReservationList {
+  repeated Reservation reservations = 1;
+}

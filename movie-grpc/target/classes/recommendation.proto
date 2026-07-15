@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.recommendation";
+option java_outer_classname = "RecommendationProto";
+
+// Contract for the RecommendationService microservice.
+// This service only suggests related movies — nothing else.
+// It runs on port 50054, independent from the other services.
+
+service RecommendationService {
+  rpc GetRecommendations (RecommendationRequest) returns (RecommendationList);
+}
+
+// The client sends the movie ID to get suggestions.
+message RecommendationRequest {
+  int32 movie_id = 1;
+}
+
+// The server responds with a list of movie title suggestions.
+message RecommendationList {
+  repeated string titles = 1;
+}
