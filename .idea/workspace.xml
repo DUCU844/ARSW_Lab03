@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bad7bcb7-ea22-4b30-a496-8ff4e0d4d740" name="Changes" comment="">
+    <list default="true" id="f155dfa4-32ac-45e3-af7e-d53c3d7a54be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
@@ -15,20 +15,19 @@
   </component>
   <component name="CopilotPersistence">
     <persistenceIdMap>
-      <entry key="_C:/Cursos/Java/Universidad/ARSW/ARSW_Lab03" value="3F0U1z0yITB7PdGtgq3qS5c38tG" />
+      <entry key="_C:/Cursos/Java/Universidad/ARSW/ARSW_Lab03" value="3FVSFgmi6n4Sh4q6BcJDQecvuqM" />
+      <entry key="_C:/Cursos/Java/Universidad/ARSW/ARSW_Lab03/movie-tcp" value="3FVSseP28eBy4EAZg9wPNSSEiv6" />
     </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="8" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
+    <option name="cachedIndexableFilesCount" value="37" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -49,107 +48,104 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.896268367067846" />
-      <entry key="MS500" value="2.669687451502657" />
-      <entry key="S2" value="2.9101964233205155" />
-      <entry key="S5" value="3.07092438475551" />
-      <entry key="S10" value="4.414225637451388" />
-      <entry key="S30" value="20.53640918557565" />
-      <entry key="S60" value="45.38310546203677" />
-      <entry key="M2" value="74.59516978715672" />
-      <entry key="M5" value="108.07210183270135" />
-      <entry key="M10" value="127.95881816339057" />
-      <entry key="M15" value="137.2747955104832" />
-      <entry key="M30" value="148.9467578172415" />
-      <entry key="H1" value="157.96621299992694" />
-      <entry key="H2" value="185.16930123954464" />
-      <entry key="H4" value="256.127920184957" />
-      <entry key="D1" value="510.25122819340345" />
-      <entry key="W1" value="708.8236749710892" />
+      <entry key="MS100" value="1.826419403913611" />
+      <entry key="MS500" value="4.396209133731693" />
+      <entry key="S2" value="8.16843181471197" />
+      <entry key="S5" value="14.282140802907026" />
+      <entry key="S10" value="21.199360203312253" />
+      <entry key="S30" value="32.332321720932086" />
+      <entry key="S60" value="37.02409717463177" />
+      <entry key="M2" value="39.82782875400034" />
+      <entry key="M5" value="41.68345078126262" />
+      <entry key="M10" value="42.33346929966143" />
+      <entry key="M15" value="42.55378783400592" />
+      <entry key="M30" value="42.775958738418645" />
+      <entry key="H1" value="42.88774444316397" />
+      <entry key="H2" value="42.94381334801157" />
+      <entry key="H4" value="42.971891937816" />
+      <entry key="D1" value="42.9953132747639" />
+      <entry key="W1" value="42.999330417643556" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="0.0" />
-      <entry key="S30" value="9.35197016729146E-280" />
-      <entry key="S60" value="6.758679988263237E-140" />
-      <entry key="M2" value="6.843444630286587E-70" />
-      <entry key="M5" value="7.410513383417842E-28" />
-      <entry key="M10" value="8.087768648662724E-14" />
-      <entry key="M15" value="4.2244444814268204E-9" />
-      <entry key="M30" value="2.876417349773064E-4" />
-      <entry key="H1" value="0.09617504048774089" />
-      <entry key="H2" value="1.9254561054911978" />
-      <entry key="H4" value="8.822595057830405" />
-      <entry key="D1" value="35.63280270768998" />
-      <entry key="W1" value="52.61166106907899" />
+      <entry key="MS100" value="6.001922786573888E-8" />
+      <entry key="MS500" value="0.03598711376744444" />
+      <entry key="S2" value="0.515285361980508" />
+      <entry key="S5" value="1.1047090033111888" />
+      <entry key="S10" value="1.6045917143840573" />
+      <entry key="S30" value="2.3277897221077097" />
+      <entry key="S60" value="2.6245281978396675" />
+      <entry key="M2" value="2.800946391860724" />
+      <entry key="M5" value="2.917446329353498" />
+      <entry key="M10" value="2.9582151981995026" />
+      <entry key="M15" value="2.972029109500988" />
+      <entry key="M30" value="2.9859570034144918" />
+      <entry key="H1" value="2.9929640434217797" />
+      <entry key="H2" value="2.996478398293691" />
+      <entry key="H4" value="2.998238292184345" />
+      <entry key="D1" value="2.9997062559695356" />
+      <entry key="W1" value="2.999958033478636" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.8278568569360063" />
-      <entry key="MS500" value="2.6501073910817374" />
-      <entry key="S2" value="2.9048288285762047" />
-      <entry key="S5" value="3.0686245541470836" />
-      <entry key="S10" value="4.4121753211053605" />
-      <entry key="S30" value="20.531490253969853" />
-      <entry key="S60" value="45.37714662470129" />
-      <entry key="M2" value="74.5898642721957" />
-      <entry key="M5" value="108.06878965485147" />
-      <entry key="M10" value="127.95681105428089" />
-      <entry key="M15" value="137.27335244823504" />
-      <entry key="M30" value="148.946259921108" />
-      <entry key="H1" value="158.06189438226988" />
-      <entry key="H2" value="187.09368925073645" />
-      <entry key="H4" value="264.9484030409177" />
-      <entry key="D1" value="545.8825966489675" />
-      <entry key="W1" value="761.435023230241" />
+      <entry key="MS100" value="1.6969584960325053" />
+      <entry key="MS500" value="4.3118034246541574" />
+      <entry key="S2" value="8.472159278515486" />
+      <entry key="S5" value="15.208553183072043" />
+      <entry key="S10" value="22.674111930338768" />
+      <entry key="S30" value="34.59644226307794" />
+      <entry key="S60" value="39.61251768485799" />
+      <entry key="M2" value="42.60944221664368" />
+      <entry key="M5" value="44.59282482238963" />
+      <entry key="M10" value="45.28758890824506" />
+      <entry key="M15" value="45.5230731140644" />
+      <entry key="M30" value="45.76053705141809" />
+      <entry key="H1" value="45.880017436581305" />
+      <entry key="H2" value="45.9399457937367" />
+      <entry key="H4" value="45.969957146653066" />
+      <entry key="D1" value="45.994990668624474" />
+      <entry key="W1" value="45.99928432759904" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6,
+  &quot;associatedIndex&quot;: 7,
   &quot;fromUser&quot;: false
 }</component>
-  <component name="ProjectId" id="3F0U1z0yITB7PdGtgq3qS5c38tG" />
+  <component name="ProjectId" id="3FVSFgmi6n4Sh4q6BcJDQecvuqM" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.ClassroomClient.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ClassroomServer.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/Adrian&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Cursos/Java/Universidad/ARSW/ARSW_Lab03",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "terminal"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Cursos\Java\Universidad\ARSW\ARSW_Lab03\movie-tcp\src\main\java\movies" />
+      <recent name="C:\Cursos\Java\Universidad\ARSW\ARSW_Lab03\docs" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ClassroomClient">
+  <component name="RunManager">
     <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
       <option name="appName" />
       <option name="appServicePlanName" />
       <option name="appServicePlanResourceGroup" />
-      <option name="appSettingsKey" value="267ad9e8-94da-467c-a607-6eb6d1fc1a0b" />
+      <option name="appSettingsKey" value="d20e212f-44ca-4fa0-a1be-c027348a7129" />
       <option name="artifact" />
       <option name="debugOptions" />
       <option name="deployment" />
@@ -175,54 +171,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClassroomClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="classroomManagement.ClassroomClient" />
-      <module name="Client_Server-SocketsTCP" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="classroomManagement.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ClassroomServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="classroomManagement.ClassroomServer" />
-      <module name="Client_Server-SocketsTCP" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="classroomManagement.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.ClassroomClient" />
-        <item itemvalue="Application.ClassroomServer" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.25134.95" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.25134.95" />
       </set>
     </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="bad7bcb7-ea22-4b30-a496-8ff4e0d4d740" name="Changes" comment="" />
-      <created>1749834211009</created>
+      <changelist id="f155dfa4-32ac-45e3-af7e-d53c3d7a54be" name="Changes" comment="" />
+      <created>1782158643636</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1749834211009</updated>
+      <updated>1782158643636</updated>
     </task>
     <servers />
   </component>
@@ -239,5 +203,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

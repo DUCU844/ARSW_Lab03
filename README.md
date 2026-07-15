@@ -59,6 +59,8 @@ java movies.MovieServer
 java movies.MovieClient
 ```
 
+![exampleMovie.png](docs/exampleMovie.png)
+
 ---
 
 ### Exercise 1: Classroom Management via TCP
@@ -105,6 +107,8 @@ ClassroomRepository (data in memory)
 ClassroomServer sends response back to client
 ```
 
+![classroom1.png](docs/classroom1.png)
+
 #### Initial data
 
 | Classroom | Available |
@@ -138,6 +142,8 @@ Choose an operation:
 0 - Exit
 Enter option:
 ```
+
+![classroom2.png](docs/classroom2.png)
 
 #### Troubleshooting: port already in use
 
@@ -263,6 +269,8 @@ Then open in browser: `http://localhost:8080/movie?id=1`
 | Only Java clients       | Any browser or tool                 |
 | Protocol in your head   | Method + path + parameters          |
 
+![moviehttp.png](docs/moviehttp.png)
+
 ---
 
 ### Exercise 2: Classroom Management via HTTP
@@ -324,6 +332,8 @@ curl -X POST "http://localhost:8081/rooms/release?id=E301"
 ```
 
 Or open `http://localhost:8081/rooms` in a browser (GET only).
+
+![classroomtestCurl.png](docs/classroomtestCurl.png)
 
 #### Troubleshooting: port already in use
 
@@ -414,6 +424,9 @@ java movies.MovieRmiServer
 java movies.MovieRmiClient
 ```
 
+
+![movieRMI.png](docs/movieRMI.png)
+
 ---
 
 ### Exercise 3: Lab Equipment Inventory with RMI
@@ -476,6 +489,8 @@ java labInventory.LabRmiServer
 # Terminal 2
 java labInventory.LabRmiClient
 ```
+
+![inventory.png](docs/inventory.png)
 
 #### Key design decisions
 
